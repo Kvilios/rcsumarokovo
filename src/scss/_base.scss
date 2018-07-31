@@ -1,0 +1,30 @@
+.layout {
+  margin: 0 auto;
+  max-width: $max-width;
+  padding: 0 $padding;
+  width: 100%;
+}
+
+.animate {
+  transition: all .1s ease-in-out;
+}
+
+.fade-opacity {
+  &-enter {
+    opacity: 0;
+
+    &-active {
+      transition: opacity .2s ease-in-out;
+    }
+  }
+
+  &-leave {
+    &-active {
+      transition: opacity .2s ease-in-out;
+    }
+
+    &-to {
+      opacity: 0;
+    }
+  }
+}
