@@ -16,9 +16,6 @@
               <li>
                 +7 (915) 901 27 77
               </li>
-              <li>
-                +7 (910) 953 67 77
-              </li>
             </ul>
             <p class="banner-callme" @click="showCallback">
               <img src="/img/pages/home/banner/icon.png" alt="">
