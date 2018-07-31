@@ -26,7 +26,7 @@
   export default {
     data() {
       return {
-        title: 'Главная'
+        title: 'Помощь зависимым и их близким, церковная алко- и наркореабилитация'
       }
     },
     components: {
