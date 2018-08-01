@@ -28,3 +28,27 @@
     }
   }
 }
+
+.adopt920 {
+  display: none;
+
+  @include adopt(920px) {
+    display: block;
+  }
+}
+
+.adopt768 {
+  display: none;
+
+  @include adopt(768px) {
+    display: block;
+  }
+}
+
+.adopt480 {
+  display: none;
+
+  @include adopt(480px) {
+    display: block;
+  }
+}

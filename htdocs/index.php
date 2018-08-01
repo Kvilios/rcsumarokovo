@@ -25,7 +25,7 @@
         <meta name="description" content="Помощь зависимым и их близким, церковная алко- и наркореабилитация">
         <meta name="yandex-verification" content="5f434f86dd3e3a48" />
         <meta name='wmail-verification' content='d7733a16c22ef0733ec321c297d3eb0d' />
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>
             Помощь зависимым и их близким, церковная алко- и наркореабилитация
         </title>

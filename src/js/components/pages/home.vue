@@ -1,6 +1,12 @@
 <template>
   <div id="home" class="home">
+    <div class="adopt920">
+        <v-menu />
+    </div>
     <v-banner />
+    <div class="adopt480">
+        <v-adopt-callback />
+    </div>
     <v-tabs />
     <v-consultation />
     <v-sumarokovo />
@@ -16,7 +22,9 @@
 </style>
 
 <script>
+  import vMenu from '@/js/components/pages/home/menu.vue';
   import vBanner from '@/js/components/pages/home/banner.vue';
+  import vAdoptCallback from '@/js/components/pages/home/adopt/callback.vue';
   import vTabs from '@/js/components/pages/home/tabs.vue';
   import vConsultation from '@/js/components/pages/home/consultation.vue';
   import vSumarokovo from '@/js/components/pages/home/sumarokovo.vue';
@@ -30,7 +38,9 @@
       }
     },
     components: {
+      vMenu,
       vBanner,
+      vAdoptCallback,
       vTabs,
       vConsultation,
       vSumarokovo,

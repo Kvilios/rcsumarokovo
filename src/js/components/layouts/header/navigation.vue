@@ -17,6 +17,10 @@
   .navigation {
     width: 100%;
 
+    @include adopt(920px) {
+      display: none;
+    }
+
     &-list {
       align-items: center;
       display: flex;

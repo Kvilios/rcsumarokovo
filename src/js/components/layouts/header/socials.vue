@@ -46,6 +46,10 @@
   @import 'src/scss/_mixins.scss';
 
   .socials {
+    @include adopt(920px) {
+      display: none;
+    }
+
     &-list {
       align-items: center;
       display: flex;

@@ -54,6 +54,10 @@
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
+
+        @include adopt(480px) {
+          min-height: 160px;
+        }
       }
     }
 
@@ -63,6 +67,10 @@
       flex-direction: column;
       padding: 115px 0 32px;
       width: 262px;
+
+      @include adopt(480px) {
+        display: none;
+      }
     }
 
     &-title {

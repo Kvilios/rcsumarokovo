@@ -1,7 +1,10 @@
 <template>
   <div class="tabs">
     <div class="layout">
-      <h2 class="tabs-title">
+      <h2 class="tabs-title" v-if="currentAdopt === 768">
+        Реабилитация зависимых
+      </h2>
+      <h2 class="tabs-title" v-else>
         Реабилитация алко- и наркозависимых
       </h2>
       <ul class="tabs-list">
@@ -241,10 +244,18 @@
       },
       isFirstTab() {
         return this.activeTab == this.list[0];
+      },
+      currentAdopt() {
+          let result;
+          if (this.adopt >= 0 && this.adopt <= 480) result = 480;
+          else if (this.adopt > 480 && this.adopt <= 768) result = 768;
+          else if (this.adopt > 768 && this.adopt <= 920) result = 920;
+          return result;
       }
     },
     data() {
       return {
+        adopt: 0,
         list: [
           {
             active: true,
@@ -347,7 +358,17 @@
       },
       listItemSrc(icon) {
         return '/img/pages/home/tabs/' + icon;
+      },
+      updateAdopt(e = null) {
+          this.adopt = window.outerWidth;
       }
+    },
+    created() {
+        window.addEventListener('resize', this.updateAdopt);
+        this.updateAdopt();
+    },
+    beforeDestroy() {
+        window.addEventListener('resize', this.updateAdopt);
     }
   }
 </script>
