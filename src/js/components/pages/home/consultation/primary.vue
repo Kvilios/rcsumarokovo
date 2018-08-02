@@ -96,6 +96,7 @@
     &-body {
       background: url('/img/pages/home/consultation/primary/border.png') repeat-y right 0;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       margin: 0 -20px 0 -10px;
 

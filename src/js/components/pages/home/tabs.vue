@@ -1,49 +1,129 @@
 <template>
   <div class="tabs">
-    <div class="layout">
-      <h2 class="tabs-title" v-if="currentAdopt === 768">
-        Реабилитация зависимых
-      </h2>
-      <h2 class="tabs-title" v-else>
-        Реабилитация алко- и наркозависимых
-      </h2>
-      <ul class="tabs-list">
-        <li class="tabs-list-item" :class="{'active': listItem.active}" v-for="listItem in list" @click="updateActive(listItem)">
-          <div class="tabs-list-item-icon">
-            <img :src="listItemSrc(listItem.icon)" alt="">
-          </div>
-          <div class="tabs-list-item-name animate">
-            <p v-html="listItem.name"></p>
-            <p class="tabs-list-item-name-period" v-if="listItem.period">
-              {{ listItem.period }}
-            </p>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="tabs-content">
+    <template v-if="currentAdopt === 768 || currentAdopt === 480">
       <div class="layout">
-        <p class="tabs-content-description" v-html="activeTab.content.description"></p>
-        <ul class="tabs-content-groups" v-if="activeTab === list[list.length - 1]">
-          <li class="tabs-content-groups-item" v-for="groupsItem in activeTab.content.groups">
-            <div class="tabs-content-groups-item-header">
-              <img :src="listItemSrc(groupsItem.icon)" alt="">
-              <h3 class="tabs-content-groups-item-header-title">
-                {{ groupsItem.name }}
-              </h3>
+        <h2 class="tabs-title">
+          Реабилитация зависимых
+        </h2>
+        <ul class="tabs-list">
+          <li class="tabs-list-item" v-if="index < 2" :class="{'active': listItem.active}" v-for="listItem, index in list" @click="updateActive(listItem)">
+            <div class="tabs-list-item-icon">
+              <img :src="listItemSrc(listItem.icon)" alt="">
             </div>
-            <ul class="tabs-content-groups-item-list">
-              <li class="tabs-content-groups-item-list-item" v-for="listItem in groupsItem.list" v-html="listItem"></li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="tabs-content-list" :class="{'first': isFirstTab}" v-else>
-          <li class="tabs-content-list-item" :class="[{'first': activeTab === list[0]}, {'second': activeTab === list[1]}, {'third': activeTab === list[2]}]" v-for="listItem in activeTab.content.list">
-            <span v-html="listItem"></span>
+            <div class="tabs-list-item-name animate">
+              <p v-html="listItem.name"></p>
+              <p class="tabs-list-item-name-period" v-if="listItem.period">
+                {{ listItem.period }}
+              </p>
+            </div>
           </li>
         </ul>
       </div>
-    </div>
+      <div class="tabs-content">
+        <div class="layout">
+          <p class="tabs-content-description" v-html="activeTab.content.description"></p>
+          <ul class="tabs-content-groups" v-if="activeTab === list[list.length - 1]">
+            <li class="tabs-content-groups-item" v-for="groupsItem in activeTab.content.groups">
+              <div class="tabs-content-groups-item-header">
+                <img :src="listItemSrc(groupsItem.icon)" alt="">
+                <h3 class="tabs-content-groups-item-header-title">
+                  {{ groupsItem.name }}
+                </h3>
+              </div>
+              <ul class="tabs-content-groups-item-list">
+                <li class="tabs-content-groups-item-list-item" v-for="listItem in groupsItem.list" v-html="listItem"></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="tabs-content-list" :class="{'first': isFirstTab}" v-else>
+            <li class="tabs-content-list-item" :class="[{'first': activeTab === list[0]}, {'second': activeTab === list[1]}, {'third': activeTab === list[2]}]" v-for="listItem in activeTab.content.list">
+              <span v-html="listItem"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="layout">
+        <ul class="tabs-list">
+          <li class="tabs-list-item" v-if="index > 1" :class="{'active': listItem.active}" v-for="listItem, index in list" @click="updateActive(listItem)">
+            <div class="tabs-list-item-icon">
+              <img :src="listItemSrc(listItem.icon)" alt="">
+            </div>
+            <div class="tabs-list-item-name animate">
+              <p v-html="listItem.name"></p>
+              <p class="tabs-list-item-name-period" v-if="listItem.period">
+                {{ listItem.period }}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="tabs-content">
+        <div class="layout">
+          <p class="tabs-content-description" v-html="activeTab.content.description"></p>
+          <ul class="tabs-content-groups" v-if="activeTab === list[list.length - 1]">
+            <li class="tabs-content-groups-item" v-for="groupsItem in activeTab.content.groups">
+              <div class="tabs-content-groups-item-header">
+                <img :src="listItemSrc(groupsItem.icon)" alt="">
+                <h3 class="tabs-content-groups-item-header-title">
+                  {{ groupsItem.name }}
+                </h3>
+              </div>
+              <ul class="tabs-content-groups-item-list">
+                <li class="tabs-content-groups-item-list-item" v-for="listItem in groupsItem.list" v-html="listItem"></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="tabs-content-list" :class="{'first': isFirstTab}" v-else>
+            <li class="tabs-content-list-item" :class="[{'first': activeTab === list[0]}, {'second': activeTab === list[1]}, {'third': activeTab === list[2]}]" v-for="listItem in activeTab.content.list">
+              <span v-html="listItem"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="layout">
+        <h2 class="tabs-title">
+          Реабилитация алко- и наркозависимых
+        </h2>
+        <ul class="tabs-list">
+          <li class="tabs-list-item" :class="{'active': listItem.active}" v-for="listItem in list" @click="updateActive(listItem)">
+            <div class="tabs-list-item-icon">
+              <img :src="listItemSrc(listItem.icon)" alt="">
+            </div>
+            <div class="tabs-list-item-name animate">
+              <p v-html="listItem.name"></p>
+              <p class="tabs-list-item-name-period" v-if="listItem.period">
+                {{ listItem.period }}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="tabs-content">
+        <div class="layout">
+          <p class="tabs-content-description" v-html="activeTab.content.description"></p>
+          <ul class="tabs-content-groups" v-if="activeTab === list[list.length - 1]">
+            <li class="tabs-content-groups-item" v-for="groupsItem in activeTab.content.groups">
+              <div class="tabs-content-groups-item-header">
+                <img :src="listItemSrc(groupsItem.icon)" alt="">
+                <h3 class="tabs-content-groups-item-header-title">
+                  {{ groupsItem.name }}
+                </h3>
+              </div>
+              <ul class="tabs-content-groups-item-list">
+                <li class="tabs-content-groups-item-list-item" v-for="listItem in groupsItem.list" v-html="listItem"></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="tabs-content-list" :class="{'first': isFirstTab}" v-else>
+            <li class="tabs-content-list-item" :class="[{'first': activeTab === list[0]}, {'second': activeTab === list[1]}, {'third': activeTab === list[2]}]" v-for="listItem in activeTab.content.list">
+              <span v-html="listItem"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -66,6 +146,10 @@
       justify-content: space-between;
       margin: 0 -12px;
 
+      @include adopt(768px) {
+        justify-content: center;
+      }
+
       &-item {
         align-items: center;
         cursor: pointer;
@@ -76,6 +160,10 @@
         position: relative;
         text-align: center;
         width: 25%;
+
+        @include adopt(768px) {
+          width: 50%;
+        }
 
         &-icon {
           align-items: center;
@@ -129,6 +217,10 @@
       padding: $padding 0;
       position: relative;
 
+      @include adopt(920px) {
+        height: auto;
+      }
+
       &-description {
         color: $blue;
         font-size: em(30);
@@ -173,6 +265,10 @@
               padding: 10px 12px 0;
               width: 50%;
 
+              @include adopt(768px) {
+                width: 100%;
+              }
+
               &::before {
                 background-color: $green;
                 border-radius: 50%;
@@ -196,12 +292,20 @@
 
         &.first &-item {
           width: 33.3%;
+
+          @include adopt(768px) {
+            width: 50%;
+          }
         }
 
         &-item {
           display: flex;
           padding: 10px 12px 0;
           width: 25%;
+
+          @include adopt(768px) {
+            width: 50%;
+          }
 
           &::before {
             background-color: $green;
@@ -237,10 +341,17 @@
         this.list.forEach((el, i) => {
           TweenMax.fromTo('.tabs-list-item:nth-child(' + (i + 1) + ')', 1, {opacity: 0, top: 100}, {opacity: 1, top: 0, ease: Back.easeOut.config(1.7), delay: i / 10});
         });
+        this.updateActive(this.list[0]);
     },
     computed: {
       activeTab() {
         return this.list.find(el => el.active === true);
+      },
+      activeFirstTabs() {
+          return this.list.slice(0, 2).find(el => el.active === true);
+      },
+      activeLastTabs() {
+          return this.list.slice(2, 4).find(el => el.active === true);
       },
       isFirstTab() {
         return this.activeTab == this.list[0];
@@ -258,7 +369,7 @@
         adopt: 0,
         list: [
           {
-            active: true,
+            active: false,
             content: {
               description: 'В этот период специалисты:',
               list: [
@@ -348,13 +459,10 @@
     },
     methods: {
       updateActive(item) {
-        /*TweenMax.fromTo('.tabs-content', .1, {opacity: 1}, {opacity: 0, ease: Sine.easeIn, onComplete: (e) => {
-          */this.list.forEach(el => {
+        this.list.forEach(el => {
             el.active = false;
-          });
-          item.active = true;/*
-          TweenMax.fromTo('.tabs-content', .1, {opacity: 0}, {opacity: 1, ease: Sine.easeOut});
-        }});*/
+        });
+        item.active = true;
       },
       listItemSrc(icon) {
         return '/img/pages/home/tabs/' + icon;

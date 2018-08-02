@@ -144,6 +144,10 @@
 
         &-slide {
           padding: 205px 0;
+
+          @include adopt(768px) {
+            padding: 150px 0;
+          }
         }
       }
     }
@@ -218,7 +222,14 @@
           loop: true,
           slidesPerGroup: 2,
           slidesPerView: 2,
-          spaceBetween: 40
+          spaceBetween: 40,
+          breakpoints: {
+              484: {
+                  slidesPerGroup: 1,
+                  slidesPerView: 1,
+                  spaceBetween: 0,
+              }
+          }
         }
       }
     },

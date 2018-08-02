@@ -130,7 +130,15 @@
         justify-content: space-between;
         margin-bottom: 40px;
 
+        @include adopt(768px) {
+          flex-wrap: wrap;
+        }
+
         &-list {
+          @include adopt(768px) {
+            width: 50%;
+          }
+
           &-item {
             align-items: flex-end;
             display: flex;
@@ -152,6 +160,11 @@
 
           &.points {
             max-width: 270px;
+
+            @include adopt(768px) {
+              max-width: none;
+              width: 100%;
+            }
 
             li:not(:first-of-type) {
               align-items: flex-start;
@@ -182,6 +195,10 @@
             background-repeat: no-repeat;
             //background-size: cover;
             padding: 200px 0;
+
+            @include adopt(768px) {
+              padding: 150px 0;
+            }
           }
         }
       }

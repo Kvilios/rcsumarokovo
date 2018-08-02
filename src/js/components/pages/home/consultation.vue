@@ -20,12 +20,17 @@
   .consultation {
     &-wrapper {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       margin: 0 -20px;
 
       &-column {
         padding: 0 20px;
         width: 50%;
+
+        @include adopt(768px) {
+          width: 100%;
+        }
       }
     }
   }
