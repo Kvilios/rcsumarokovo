@@ -52,6 +52,7 @@
         }
 
         &-callme {
+          align-items: center;
           cursor: pointer;
           display: flex;
           justify-content: center;
@@ -64,7 +65,9 @@
           }
 
           img {
+            height: 29px;
             margin-right: 10px;
+            width: 17px;
           }
 
           span {

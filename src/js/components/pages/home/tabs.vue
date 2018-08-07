@@ -1,12 +1,12 @@
 <template>
   <div class="tabs">
-    <template v-if="currentAdopt === 768 || currentAdopt === 480">
+    <template v-if="currentAdopt && (currentAdopt === 768 || currentAdopt === 480)">
       <div class="layout">
         <h2 class="tabs-title">
           Реабилитация зависимых
         </h2>
         <ul class="tabs-list">
-          <li class="tabs-list-item" v-if="index < 2" :class="{'active': listItem.active}" v-for="listItem, index in list" @click="updateActive(listItem)">
+          <li class="tabs-list-item" v-if="index < 2" :class="{'active': firstTabsIndex === index}" v-for="listItem, index in list" @click="updateActive(listItem)">
             <div class="tabs-list-item-icon">
               <img :src="listItemSrc(listItem.icon)" alt="">
             </div>
@@ -21,9 +21,9 @@
       </div>
       <div class="tabs-content">
         <div class="layout">
-          <p class="tabs-content-description" v-html="activeTab.content.description"></p>
-          <ul class="tabs-content-groups" v-if="activeTab === list[list.length - 1]">
-            <li class="tabs-content-groups-item" v-for="groupsItem in activeTab.content.groups">
+          <p class="tabs-content-description" v-html="activeFirstTabs.content.description"></p>
+          <ul class="tabs-content-groups" v-if="activeFirstTabs === list[list.length - 1]">
+            <li class="tabs-content-groups-item" v-for="groupsItem in activeFirstTabs.content.groups">
               <div class="tabs-content-groups-item-header">
                 <img :src="listItemSrc(groupsItem.icon)" alt="">
                 <h3 class="tabs-content-groups-item-header-title">
@@ -36,7 +36,7 @@
             </li>
           </ul>
           <ul class="tabs-content-list" :class="{'first': isFirstTab}" v-else>
-            <li class="tabs-content-list-item" :class="[{'first': activeTab === list[0]}, {'second': activeTab === list[1]}, {'third': activeTab === list[2]}]" v-for="listItem in activeTab.content.list">
+            <li class="tabs-content-list-item" :class="[{'first': activeFirstTabs === list[0]}, {'second': activeFirstTabs === list[1]}, {'third': activeFirstTabs === list[2]}]" v-for="listItem in activeFirstTabs.content.list">
               <span v-html="listItem"></span>
             </li>
           </ul>
@@ -44,7 +44,7 @@
       </div>
       <div class="layout">
         <ul class="tabs-list">
-          <li class="tabs-list-item" v-if="index > 1" :class="{'active': listItem.active}" v-for="listItem, index in list" @click="updateActive(listItem)">
+          <li class="tabs-list-item" v-if="index > 1" :class="{'active': lastTabsIndex === index}" v-for="listItem, index in list" @click="updateActive(listItem)">
             <div class="tabs-list-item-icon">
               <img :src="listItemSrc(listItem.icon)" alt="">
             </div>
@@ -59,9 +59,9 @@
       </div>
       <div class="tabs-content">
         <div class="layout">
-          <p class="tabs-content-description" v-html="activeTab.content.description"></p>
-          <ul class="tabs-content-groups" v-if="activeTab === list[list.length - 1]">
-            <li class="tabs-content-groups-item" v-for="groupsItem in activeTab.content.groups">
+          <p class="tabs-content-description" v-html="activeLastTabs.content.description"></p>
+          <ul class="tabs-content-groups" v-if="activeLastTabs === list[list.length - 1]">
+            <li class="tabs-content-groups-item" v-for="groupsItem in activeLastTabs.content.groups">
               <div class="tabs-content-groups-item-header">
                 <img :src="listItemSrc(groupsItem.icon)" alt="">
                 <h3 class="tabs-content-groups-item-header-title">
@@ -74,7 +74,7 @@
             </li>
           </ul>
           <ul class="tabs-content-list" :class="{'first': isFirstTab}" v-else>
-            <li class="tabs-content-list-item" :class="[{'first': activeTab === list[0]}, {'second': activeTab === list[1]}, {'third': activeTab === list[2]}]" v-for="listItem in activeTab.content.list">
+            <li class="tabs-content-list-item" :class="[{'first': activeLastTabs === list[0]}, {'second': activeLastTabs === list[1]}, {'third': activeLastTabs === list[2]}]" v-for="listItem in activeLastTabs.content.list">
               <span v-html="listItem"></span>
             </li>
           </ul>
@@ -345,16 +345,30 @@
     },
     computed: {
       activeTab() {
-        return this.list.find(el => el.active === true);
+          return this.list.find(el => el.active === true);
       },
       activeFirstTabs() {
-          return this.list.slice(0, 2).find(el => el.active === true);
+          let result;
+          for (let i = 0; i < this.tabsStatus.firstTabs.length; i++) {
+              if (this.tabsStatus.firstTabs[i]) {
+                  result = this.list[i];
+                  break;
+              }
+          }
+          return result;
       },
       activeLastTabs() {
-          return this.list.slice(2, 4).find(el => el.active === true);
+          let result;
+          for (let i = 0; i < this.tabsStatus.lastTabs.length; i++) {
+              if (this.tabsStatus.lastTabs[i]) {
+                  result = this.list[i + 2];
+                  break;
+              }
+          }
+          return result;
       },
       isFirstTab() {
-        return this.activeTab == this.list[0];
+        return this.activeTab === this.list[0];
       },
       currentAdopt() {
           let result;
@@ -362,6 +376,26 @@
           else if (this.adopt > 480 && this.adopt <= 768) result = 768;
           else if (this.adopt > 768 && this.adopt <= 920) result = 920;
           return result;
+      },
+      firstTabsIndex() {
+          let index;
+          for (let i = 0; i < this.tabsStatus.firstTabs.length; i++) {
+              if (this.tabsStatus.firstTabs[i]) {
+                  index = i;
+                  break;
+              }
+          }
+          return index;
+      },
+      lastTabsIndex() {
+          let index;
+          for (let i = 0; i < this.tabsStatus.lastTabs.length; i++) {
+              if (this.tabsStatus.lastTabs[i]) {
+                  index = i;
+                  break;
+              }
+          }
+          return index + 2;
       }
     },
     data() {
@@ -454,15 +488,32 @@
             icon: 'icon-4.png',
             name: 'Группы поддержки для наркозависимых и их близких'
           }
-        ]
+        ],
+        tabsStatus: {
+            firstTabs: [true, false],
+            lastTabs: [true, false]
+        }
       }
     },
     methods: {
       updateActive(item) {
-        this.list.forEach(el => {
-            el.active = false;
-        });
-        item.active = true;
+          if (this.currentAdopt === 768 || this.currentAdopt === 480) {
+              let index = this.list.indexOf(item), result = [];
+              if (index < 2) {
+                  for (let i = 0; i < this.tabsStatus.firstTabs.length; i++) result.push(i === index);
+                  this.tabsStatus.firstTabs = result;
+              }
+              else {
+                  for (let i = 0; i < this.tabsStatus.lastTabs.length; i++) result.push(i === index - 2);
+                  this.tabsStatus.lastTabs = result;
+              }
+          }
+          else {
+              this.list.forEach(el => {
+                  el.active = false;
+              });
+              item.active = true;
+          }
       },
       listItemSrc(icon) {
         return '/img/pages/home/tabs/' + icon;
