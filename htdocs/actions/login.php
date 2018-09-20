@@ -1,16 +1,47 @@
 <?php
+  include 'db_conf.php';
+
   $_POST = json_decode(file_get_contents('php://input'), true);
 
-  $name = $_POST['name'];
-  $name = preg_replace('/\s+/', '', $name);
-  $name = mb_strtolower($name, 'UTF-8');
+  if (isset($_POST['token'])) $token = $_POST['token'];
+  else {
+    $email = $_POST['email'];
 
-  $password = $_POST['password'];
-  $password = preg_replace('/\s+/', '', $password);
+    $email = preg_replace('/\s+/', '', $email);
 
-  $hash = md5('администратор+rc20_18sum');
+    $email = mb_strtolower($email, 'UTF-8');
+  
+    $password = $_POST['password'];
 
-  $result = md5($name . '+' . $password);
+    $password = preg_replace('/\s+/', '', $password);
+  
+    $token = md5($email . ' + ' . $password . ' = ' + md5($email . ' + ' . $password));
+  }
 
-  echo ($hash == $result) ? 'correct' : 'incorrect';
+  $sql = "SELECT `id`, `name`, `surname` FROM `admin` WHERE `token` = '$token'";
+
+  $data = $conn->query($sql);
+
+  $result = 'error';
+
+  if ($data) {
+    $result = [];
+  
+    if (intval($data->num_rows)) {
+      $row = $data->fetch_assoc();
+
+      $result = [
+        'id' => $row['id'],
+        'name' => $row['name'],
+        'surname' => $row['surname'],
+        'token' => $token
+      ];
+    }
+
+    $result = json_encode($result);
+  }
+
+  $conn->close();
+
+  echo $result;
 ?>

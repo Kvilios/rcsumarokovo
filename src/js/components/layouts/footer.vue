@@ -16,9 +16,6 @@
             &copy; Все права защищены, 2015-2018
           </p>
         </div>
-        <div class="footer-copyright-autors">
-          Разработка сайта -
-        </div>
       </div>
     </div>
   </div>
@@ -61,7 +58,7 @@
     &-copyright {
       color: $accentColor;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       padding: 50px 0;
 
       &-about {
@@ -78,14 +75,6 @@
             margin-bottom: 0;
           }
         }
-      }
-
-      &-autors {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        width: 50%;
       }
     }
   }

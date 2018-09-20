@@ -1,56 +1,37 @@
 <template>
   <div id="admin" class="admin">
-    <v-sign-in @login="login" v-if="!isAuthorized" />
-    <div class="layout" v-else>
-      <router-link class="admin-home animate" to="/">На Главную</router-link>
-      <div class="admin-inside">
-        <v-news />
-      </div>
-    </div>
+    <v-panel v-if="isAuthorized" />
+    <v-sign-in v-else />
   </div>
 </template>
 
 <style lang="scss">
-  @import 'src/scss/_variables.scss';
-  @import 'src/scss/_mixins.scss';
+  @import '~@/scss/_variables.scss';
+  @import '~@/scss/_mixins.scss';
 
   .admin {
-    &-home {
-      border-bottom: 1px dashed $dark-text;
-
-      &:hover {
-        border-bottom: 1px dashed rgba(0, 0, 0, 0);
-        color: lighten($dark-text, 10%);
-      }
-    }
-
-    &-inside {
-      font-size: em(16);
-    }
+    
   }
 </style>
 
 <script>
-  import vSignIn from '@/js/components/pages/admin/sign-in.vue';
-  import vNews from '@/js/components/pages/admin/news.vue';
+  import vPanel from '@/js/components/pages/admin/panel.vue'
+  import vSignIn from '@/js/components/pages/admin/sign-in.vue'
 
   export default {
-    data() {
-      return {
-        isAuthorized: false,
-        title: 'Панель администратора'
-      }
-    },
     components: {
-      vSignIn,
-      vNews
+      vPanel,
+      vSignIn
     },
     created() {
-      document.title = this.title;
+      document.title = this.data.title
     },
-    methods: {
-      login() {
-        this.isAuthorized = true;
+    computed: {
+      data() {
+        return this.$store.getters.adminData
+      },
+      isAuthorized() {
+        return Object.keys(this.data.userData).length
       }
     }
   }

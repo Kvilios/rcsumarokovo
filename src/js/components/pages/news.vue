@@ -2,7 +2,7 @@
   <div id="news" class="news">
     <v-phones />
     <div class="layout">
-      <ul class="news-list" v-if="list">
+      <ul class="news-list" v-if="list.length">
         <li class="news-list-item" v-for="listItem in list">
           <a class="news-list-item-link">
             <div class="news-list-item-link-image" :style="imageStyle(listItem.image)" v-if="listItem.image"></div>
@@ -10,12 +10,14 @@
               <p class="news-list-item-link-inside-date">
                 {{ correctDate(listItem.created) }}
               </p>
-              <h2 class="news-list-item-link-inside-title" v-html="listItem.title"></h2>
-              <div class="news-list-item-link-inside-full" v-html="listItem.full" v-if="listItem.fullIsActive"></div>
-              <div class="news-list-item-link-inside-short" v-html="listItem.short" v-else></div>
+              <h2 class="news-list-item-link-inside-title">
+                {{ listItem.title }}
+              </h2>
+              <div class="news-list-item-link-inside-description" v-html="listItem.full"></div>
+              <!-- <div class="news-list-item-link-inside-short" v-html="listItem.short" v-else></div>
               <button class="news-list-item-link-inside-button animate" v-if="!listItem.fullIsActive && listItem.full" @click="listItem.fullIsActive = true">
                 Читать полностью...
-              </button>
+              </button> -->
             </div>
           </a>
         </li>
@@ -149,17 +151,21 @@
           'ноября',
           'декабря'
         ];
-        return date.getDate() + ' ' + months[date.getMonth()];
+        return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear() + ' г.';
       },
       getNews() {
         let then = this;
         axios.post('/actions/news.php')
-        .then(function (response) {
-          then.list = response.data;
+        .then(response => {
+          if (response.data === 'error') {
+            alert('Произошла ошибка!')
+            console.log('Код ошибки: 2')
+          }
+          else then.list = response.data;
         })
-        .catch(function (error) {
+        .catch(error => {
           alert('Произошла ошибка!');
-          console.log(error);
+          console.log('Код ошибки: 1')
         });
       }
     },

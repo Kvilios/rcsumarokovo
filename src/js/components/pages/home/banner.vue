@@ -5,9 +5,15 @@
         <div class="layout">
           <div class="banner-callback">
             <h1 class="banner-title">
+              Благотворительный фонд<br>
+              &laquo;преподобного Геннадия<br>
+              Костромского и<br>
+              Любимоградского&raquo;
+            </h1>
+            <p class="banner-subtitle">
               Церковная помощь<br>
               алко- и наркозависимым
-            </h1>
+            </p>
             <p class="banner-tagline">
               Звони!<br>
               Поможем!

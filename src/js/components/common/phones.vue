@@ -8,9 +8,6 @@
         <li class="phones-list-item">
           +7 (915) 901 27 77
         </li>
-        <li class="phones-list-item">
-          +7 (910) 953 67 77
-        </li>
       </ul>
     </div>
   </div>
@@ -30,7 +27,7 @@
     &-list {
       align-items: center;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       margin-left: 262px;
       padding-left: 16px;
 
@@ -39,6 +36,7 @@
         font-family: Garamond, serif;
         font-size: em(32);
         font-weight: bold;
+        margin: 0 4px;
 
         &:first-of-type {
           font-size: em(40);
