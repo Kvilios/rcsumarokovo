@@ -200,11 +200,10 @@
           this.counter ? this.counter-- : this.$store.commit('deleteNewsItem', {id: this.data.id})
       },
       onChangeImage(image) {
-          //if (image.size < 1000000) {
-              console.log(('data:' + image.type + ';base64,' + image.base64).length)
+          if (image.size < 1000000) {
               this.images.push('data:' + image.type + ';base64,' + image.base64)
               this.$store.commit('updateNewsItemImage', {id: this.data.id, image: this.image})
-          //}
+          }
       },
       onRemoveImage() {
           this.images = []
