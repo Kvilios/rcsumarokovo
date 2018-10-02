@@ -208,8 +208,18 @@
 
 <script>
   export default {
+    computed: {
+       currentAdopt() {
+          let result;
+          if (this.adopt >= 0 && this.adopt <= 480) result = 480;
+          else if (this.adopt > 480 && this.adopt <= 768) result = 768;
+          else if (this.adopt > 768 && this.adopt <= 920) result = 920;
+          return result;
+      }
+    },
     data() {
       return {
+        adopt: 0,
         list: [
           [
             {
@@ -246,13 +256,20 @@
         ],
         slides: [
           {
-            image: 'photo-1.png'
+            image: 'photo-1.png',
+            isMobile: false
           },
           {
-            image: 'photo-2.png'
+            image: 'photo-2.png',
+            isMobile: false
           },
           {
-            image: 'photo-3.png'
+            image: 'photo-3.png',
+            isMobile: false
+          },
+          {
+            image: 'photo-4.png',
+            isMobile: true
           }
         ],
         swiperOption: {
@@ -267,8 +284,18 @@
     },
     methods: {
       swiperSlideStyle(image) {
-        return 'background-image: url(\'/img/pages/home/sumarokovo/gallery/' + image + '\');';
+        return `background: url('/img/pages/home/sumarokovo/gallery/${(this.currentAdopt == 480) ? '480/' + image : image}') no-repeat center center / cover;`;
+      },
+      updateAdopt(e = null) {
+          this.adopt = window.outerWidth;
       }
+    },
+    created() {
+        window.addEventListener('resize', this.updateAdopt);
+        this.updateAdopt();
+    },
+    beforeDestroy() {
+        window.addEventListener('resize', this.updateAdopt);
     }
   }
 </script>

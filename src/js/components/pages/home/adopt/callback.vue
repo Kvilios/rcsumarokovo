@@ -1,9 +1,15 @@
 <template>
     <div class="adopt-callback">
-        <h1 class="adopt-callback-title">
+        <h1 class="adopt callback-title">
+            Благотворительный фонд<br>
+            &laquo;преподобного<br>
+            Геннадия Костромского<br>
+            и Любимоградского&raquo;
+        </h1>
+        <h2 class="adopt-callback-subtitle">
             Церковная помощь<br>
             алко- и наркозависимым
-        </h1>
+        </h2>
         <p class="adopt-callback-tagline">
             Звони!<br>
             Поможем!
@@ -25,6 +31,11 @@
         padding: $padding 0;
 
         &-title {
+            font-size: em(48);
+            text-align: center;
+        }
+
+        &-subtitle {
             font-size: em(48);
             text-align: center;
         }

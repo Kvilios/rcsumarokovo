@@ -26,8 +26,34 @@
         <meta name="yandex-verification" content="5f434f86dd3e3a48" />
         <meta name='wmail-verification' content='d7733a16c22ef0733ec321c297d3eb0d' />
         <meta name="viewport" content="width=device-width, minimal-scale=480">
-        <!-- <meta name="viewport" content="width=device-width, user-scalable=no"> -->
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter12348724 = new Ya.Metrika({
+                            id:12348724,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true
+                        });
+                    } catch(e) { }
+                });
+
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f, false);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/12348724" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
         <title>
             Помощь зависимым и их близким, церковная алко- и наркореабилитация
         </title>
