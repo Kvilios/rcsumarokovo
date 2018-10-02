@@ -74,10 +74,14 @@
       align-items: center;
       display: flex;
       font-family: Garamond, serif;
-      font-size: 2em;
+      font-size: em(48);
       height: 170px;
       justify-content: center;
       line-height: 45px;
+
+      @include adopt(920px) {
+        line-height: normal;
+      }
 
       &-icon {
         height: 83px;
@@ -99,6 +103,10 @@
       flex-wrap: wrap;
       justify-content: space-between;
       margin: 0 -20px 0 -10px;
+
+      @include adopt(768px) {
+        background: none;
+      }
 
       &-column {
         padding: 0 10px;

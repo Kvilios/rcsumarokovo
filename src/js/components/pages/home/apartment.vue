@@ -59,10 +59,14 @@
       }
 
       &-title {
-        font-size: 2em;
+        font-size: em(48);
         line-height: 40px;
         position: relative;
         text-align: center;
+
+        @include adopt(920px) {
+          line-height: normal;
+        }
 
         &:after {
           background-color: $accentColor;

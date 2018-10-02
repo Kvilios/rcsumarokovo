@@ -87,6 +87,7 @@
     },
     methods: {
       sendForm() {
+        this.formData.name = this.formData.name.replace(/\s\s+/g, ' ');
         if (this.formData.name.length > 1 && this.formData.phone.length == 18) {
           let then = this;
           axios.post('/actions/mail.php', this.formData)

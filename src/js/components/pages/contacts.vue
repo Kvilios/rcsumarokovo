@@ -1,5 +1,8 @@
 <template>
   <div id="contacts" class="contacts">
+    <div class="adopt920">
+        <v-menu />
+    </div>
     <v-phones />
     <div class="layout">
       <ul class="contacts-list">
@@ -87,11 +90,24 @@
       margin-top: 100px;
       padding-left: 40px;
 
+      @include adopt(920px) {
+        flex-direction: column;
+        font-size: em(32);
+        margin-top: 0;
+        padding-left: 0;
+      }
+
       &-item {
         display: flex;
         flex-direction: column;
         padding: 0 50px;
         width: 50%;
+
+        @include adopt(920px) {
+          margin-bottom: 40px;
+          padding: 0;
+          width: 100%;
+        }
 
         &-title {
           color: $accentColor;
@@ -99,6 +115,10 @@
           font-size: em(29);
           font-weight: bold;
           margin-bottom: 25px;
+
+          @include adopt(920px) {
+            font-size: em(48);
+          }
         }
 
         &-description {
@@ -121,12 +141,22 @@
       justify-content: space-between;
       margin: 80px -50px 60px;
 
+      @include adopt(920px) {
+        font-size: em(32);
+        margin: 40px 0 60px;
+      }
+
       &-item {
         align-items: center;
         display: flex;
         flex-direction: column;
         padding: 0 50px;
         width: 50%;
+
+        @include adopt(480px) {
+          padding: 8px 0;
+          width: 100%;
+        }
 
         &-icon {
           height: 25px;
@@ -135,8 +165,11 @@
 
         &-label {
           margin: 6.25px 0 12.5px;
+          text-align: center;
 
           &-link {
+            white-space: nowrap;
+
               &:hover {
               color: lighten($dark-text, 10%);
               border-bottom: 1px dashed lighten($dark-text, 10%);
@@ -153,9 +186,17 @@
         font-size: em(29);
         font-weight: bold;
         margin-bottom: 10px;
+
+        @include adopt(920px) {
+          font-size: em(48);
+        }
       }
 
       &-inside {
+        @include adopt(920px) {
+          font-size: em(32);
+        }
+
         p {
           margin-bottom: 10px;
 
@@ -169,6 +210,7 @@
 </style>
 
 <script>
+  import vMenu from '@/js/components/pages/home/menu.vue';
   import vPhones from '@/js/components/common/phones.vue';
 
   export default {
@@ -209,6 +251,7 @@
       document.title = this.title;
     },
     components: {
+      vMenu,
       vPhones
     },
     methods: {

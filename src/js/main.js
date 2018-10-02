@@ -12,6 +12,7 @@ import '@/js/ymaps.js'
 import store from '@/js/store.js'
 import VueCookie from 'vue-cookie'
 import VueQuillEditor from 'vue-quill-editor'
+//import './ymaps'
 
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'

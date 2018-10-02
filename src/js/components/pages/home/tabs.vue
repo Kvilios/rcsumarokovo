@@ -234,7 +234,7 @@
         justify-content: space-between;
 
         &-item {
-          padding: 0 20px;
+          //padding: 0 20px;
           width: 50%;
 
           &-header {
@@ -345,7 +345,9 @@
     },
     computed: {
       activeTab() {
-          return this.list.find(el => el.active === true);
+          let result = this.list.find(el => el.active === true);
+          if (!result) result = this.list[0];
+          return result;
       },
       activeFirstTabs() {
           let result;
@@ -411,7 +413,7 @@
                 'Выявляют склонность<br>к какому-либо виду<br>реабилитации.',
                 'Готовят человека<br>к прохождению полного<br>курса реабилитации.',
                 'Выявляют<br>необходимость особых<br>условий реабилитации.',
-                'Тестируют на <br>ВИЧ и<br>гепатит.',
+                'Тестируют на <br>ВИЧ и гепатит.',
                 'Знакомят<br>со священником.'
               ]
             },

@@ -42,9 +42,13 @@
         <h3 class="news-item-content-title">
             Заголовок:
         </h3>
-        <input class="news-item-content-input" type="text" v-model="data.title">
+        <input class="news-item-content-input" type="text" v-model="data.title" maxlength="255">
         <h3 class="news-item-content-title">
-            Описание:
+            Краткое описание:
+        </h3>
+        <input class="news-item-content-input" type="text" v-model="data.short" maxlength="255">
+        <h3 class="news-item-content-title">
+            Полное описание:
         </h3>
         <quill-editor class="news-item-content-editor" v-model="data.full" :options="editorOption" />
     </div>

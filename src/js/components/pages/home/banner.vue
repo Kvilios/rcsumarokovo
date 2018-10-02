@@ -6,9 +6,9 @@
           <div class="banner-callback">
             <h1 class="banner-title">
               Благотворительный фонд<br>
-              &laquo;преподобного Геннадия<br>
-              Костромского и<br>
-              Любимоградского&raquo;
+              &laquo;преподобного<br>
+              Геннадия Костромского<br>
+              и Любимоградского&raquo;
             </h1>
             <p class="banner-subtitle">
               Церковная помощь<br>
@@ -33,20 +33,6 @@
         </div>
       </swiper-slide>
     </swiper>
-    <modal name="banner-callback">
-      <div class="banner-callback-wrapper">
-        <h2 class="banner-callback-wrapper-title">
-          Мы перезвоним Вам!
-        </h2>
-        <form class="banner-callback-wrapper-form" @submit.prevent="sendForm">
-          <input type="text" v-model="formData.name" placeholder="Ваше имя" required>
-          <masked-input type="tel" v-model="formData.phone" placeholder="Ваш телефон" mask="\+\7 (111) 111-11-11" required />
-          <button type="submit animate">
-            Заказать звонок
-          </button>
-        </form>
-      </div>
-    </modal>
   </div>
 </template>
 
@@ -62,7 +48,7 @@
         background-size: cover;
 
         @include adopt(480px) {
-          min-height: 160px;
+          min-height: 300px;
         }
       }
     }
@@ -74,6 +60,10 @@
       padding: 115px 0 32px;
       width: 262px;
 
+      @include adopt(768px) {
+          padding: 72px 0 64px;
+      }
+
       @include adopt(480px) {
         display: none;
       }
@@ -81,13 +71,36 @@
 
     &-title {
       font-size: em(20);
+      margin-bottom: 22.5px;
       text-align: center;
+
+      @include adopt(920px) {
+        font-size: em(24);
+      }
+
+      @include adopt(768px) {
+        font-size: em(24);
+      }
+    }
+
+    &-subtitle {
+      font-size: em(20);
+      font-weight: bold;
+      text-align: center;
+
+      @include adopt(920px) {
+        font-size: em(24);
+      }
+
+      @include adopt(768px) {
+        font-size: em(24);
+      }
     }
 
     &-tagline {
       font-family: Garamond, serif;
       font-size: em(40);
-      margin: 55px 0;
+      margin: 10px 0;
       text-align: center;
     }
 
@@ -123,86 +136,27 @@
         font-weight: bold;
       }
     }
-
-    &-callback {
-      &-wrapper {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        justify-content: center;
-        padding: 10px;
-
-        &-title {
-          font-size: 1.5em;
-          margin-bottom: 12.5px;
-          text-align: center;
-        }
-
-        &-form {
-          align-items: center;
-          display: flex;
-          flex-direction: column;
-
-          input {
-            border: none;
-            border-radius: 10px;
-            box-shadow: inset 3px 3px 4px rgba(0, 0, 0, .1875);
-            color: #313a3f;
-            font-family: Calibri, sans-serif;
-            font-size: 24px;
-            height: 60px;
-            margin: 12.5px 0;
-            max-width: 535px;
-            padding: 0 25px;
-            width: 100%;
-          }
-
-          button {
-            background-color: rgba(0, 0, 0, 0);
-            border: none;
-            color: $dark-text;
-            cursor: pointer;
-            font-family: Garamond, serif;
-            font-size: 1.5em;
-            font-weight: bold;
-            margin: 12.5px 0 0;
-            padding: 0;
-            text-align: center;
-
-            &:hover {
-              color: lighten($dark-text, 10%);
-            }
-          }
-        }
-      }
-    }
   }
 </style>
 
 <script>
-  import MaskedInput from 'vue-masked-input';
-  import axios from 'axios';
-
   export default {
     data() {
       return {
-        formData: {
-          name: '',
-          phone: ''
-        },
+        adopt: 0,
         slides: [
           {
-            image: 'image-1.jpg'
+            image: 'image-1.png'
           },
           {
-            image: 'image-2.jpg'
+            image: 'image-2.png'
           },
           {
-            image: 'image-3.jpg'
+            image: 'image-3.png'
           }
         ],
         swiperOption: {
+          loop: true,
           autoplay: {
             delay: 5000,
             disableOnInteraction: false
@@ -212,35 +166,32 @@
         }
       }
     },
-    methods: {
-      sendForm() {
-        if (this.formData.name.length > 1 && this.formData.phone.length == 18) {
-          let then = this;
-          axios.post('/actions/mail.php', this.formData)
-          .then(function (response) {
-            alert('Сообщение отправлено!');
-            then.formData.name = '';
-            then.formData.phone = '';
-            then.hideCallback();
-          })
-          .catch(function (error) {
-            alert('Произошла ошибка!');
-            console.log(error);
-          });
-        }
-      },
-      swiperSlideStyle(image) {
-        return 'background-image: url(\'/img/pages/home/banner/' + image + '\');';
-      },
-      showCallback() {
-        this.$modal.show('banner-callback');
-      },
-      hideCallback() {
-        this.$modal.hide('banner-callback');
+    computed: {
+      currentAdopt() {
+          let result;
+          if (this.adopt >= 0 && this.adopt <= 480) result = 480;
+          else if (this.adopt > 480 && this.adopt <= 768) result = 768;
+          else if (this.adopt > 768 && this.adopt <= 920) result = 920;
+          return result;
       }
     },
-    components: {
-      MaskedInput
+    methods: {
+      swiperSlideStyle(image) {
+        return 'background: url(\'/img/pages/home/banner/' + (this.currentAdopt ? this.currentAdopt + '/' : '') + image + '\') no-repeat center center / cover;';
+      },
+      showCallback() {
+        this.$modal.show('header-callback');
+      },
+      updateAdopt(e = null) {
+          this.adopt = window.outerWidth;
+      }
+    },
+    created() {
+        window.addEventListener('resize', this.updateAdopt);
+        this.updateAdopt();
+    },
+    beforeDestroy() {
+        window.addEventListener('resize', this.updateAdopt);
     }
   }
 </script>

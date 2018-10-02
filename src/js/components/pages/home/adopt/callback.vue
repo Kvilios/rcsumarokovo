@@ -13,32 +13,35 @@
                 +7 (915) 901 27 77
             </li>
         </ul>
-        <!-- <p class="adopt-callback-callme" @click="showCallback">
-            <img src="/img/pages/home/banner/icon.png" alt="">
-            <span>
-                Обратный звонок
-              </span>
-        </p>
-        <modal name="adopt-callback-modal">
-            <div class="adopt-callback-modal-wrapper">
-                <h2 class="adopt-callback-modal-wrapper-title">
-                    Мы перезвоним Вам!
-                </h2>
-                <form class="adopt-callback-modal-wrapper-form" @submit.prevent="sendForm">
-                    <input type="text" v-model="formData.name" placeholder="Ваше имя" required>
-                    <masked-input type="tel" v-model="formData.phone" placeholder="Ваш телефон" mask="\+\7 (111) 111-11-11" required />
-                    <button type="submit animate">
-                        Заказать звонок
-                    </button>
-                </form>
-            </div>
-        </modal> -->
     </div>
 </template>
 
 <style lang="scss">
     @import 'src/scss/_variables.scss';
     @import 'src/scss/_mixins.scss';
+
+    .adopt-callback {
+        font-family: Garamond, serif;
+        padding: $padding 0;
+
+        &-title {
+            font-size: em(48);
+            text-align: center;
+        }
+
+        &-tagline {
+            font-size: em(48);
+            font-weight: bold;
+            margin: $margin 0;
+            text-align: center;
+        }
+
+        &-phones {
+            font-size: em(48);
+            font-weight: bold;
+            text-align: center;
+        }
+    }
 </style>
 
 <script>

@@ -1,11 +1,21 @@
 <template>
   <div id="conditions" class="conditions">
+    <div class="adopt920">
+        <v-menu />
+    </div>
     <v-phones />
     <div class="layout">
       <div class="conditions-wrapper">
         <div class="conditions-tabs">
           <ul class="conditions-tabs-list">
-            <li class="conditions-tabs-list-item animate" :class="{'active': tab.isActive}" v-for="tab in content.tabs" @click="selectTab(tab)" v-html="tab.name"></li>
+            <template v-if="currentAdopt">
+              <li class="conditions-tabs-list-item animate" :class="{'active': tab.isActive}" v-for="tab in content.tabs" @click="selectTab(tab)">
+                {{ removeBr(tab.name) }}
+              </li>
+            </template>
+            <template v-else>
+              <li class="conditions-tabs-list-item animate" :class="{'active': tab.isActive}" v-for="tab in content.tabs" @click="selectTab(tab)" v-html="tab.name"></li>
+            </template>
           </ul>
         </div>
         <div class="conditions-content" v-if="isMemo">
@@ -36,7 +46,9 @@
               </ul>
               <ul>
                 <li>
-                  собрать необходимые медицинские&nbsp;<a class="animate" @click.prevent="selectTab(content.tabs[1])" href="#">справки</a>;
+                  <span>
+                    собрать необходимые медицинские&nbsp;<a class="animate" @click.prevent="selectTab(content.tabs[1])" href="#">справки</a>;
+                  </span>
                 </li>
                 <li>
                   вылечить зубы;
@@ -74,6 +86,11 @@
     &-wrapper {
       display: flex;
       justify-content: space-between;
+
+      @include adopt(920px) {
+        flex-direction: column;
+        margin: 0;
+      }
     }
 
     &-tabs {
@@ -81,10 +98,22 @@
       margin-right: 16px;
       width: 262px;
 
+      @include adopt(920px) {
+        margin: 0 0 20px;
+        width: 100%;
+      }
+
       &-list {
         align-items: flex-start;
         display: flex;
         flex-direction: column;
+
+        @include adopt(920px) {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin-top: -$margin;
+        }
 
         &-item {
           color: $accentColor;
@@ -92,6 +121,11 @@
           font-size: em(19);
           font-weight: bold;
           margin: 40px 0 0 46px;
+
+          @include adopt(920px) {
+            font-size: em(32);
+            margin: $margin $margin 0;
+          }
 
           &:hover {
             color: lighten($accentColor, 10%);
@@ -111,8 +145,16 @@
     .memo {
       font-size: em(19);
 
+      @include adopt(920px) {
+        font-size: em(32);
+      }
+
       &-title {
         font-size: 32px;
+
+        @include adopt(920px) {
+          font-size: em(48);
+        }
       }
 
       p {
@@ -124,9 +166,19 @@
         justify-content: space-between;
         margin: 0 -23px 20px -43px;
 
+        @include adopt(768px) {
+          flex-direction: column;
+          margin: 0 0 20px;
+        }
+
         ul {
           margin: 0 23px 0;
           width: calc(50% - 46px);
+
+          @include adopt(768px) {
+            margin: 0;
+            width: 100%;
+          }
 
           li {
             align-items: flex-start;
@@ -163,8 +215,16 @@
     .documents {
       font-size: em(19);
 
+      @include adopt(920px) {
+        font-size: em(32);
+      }
+
       &-title {
         font-size: 32px;
+
+        @include adopt(920px) {
+          font-size: em(48);
+        }
       }
 
       p {
@@ -176,9 +236,19 @@
         justify-content: space-between;
         margin: 0 -23px 20px -43px;
 
+        @include adopt(768px) {
+          flex-direction: column;
+          margin: 0 0 20px;
+        }
+
         ul {
           margin: 0 23px 0;
           width: calc(50% - 46px);
+
+          @include adopt(768px) {
+            margin: 0;
+            width: 100%;
+          }
 
           li {
             align-items: flex-start;
@@ -205,9 +275,18 @@
     .take {
       font-size: em(19);
 
+      @include adopt(920px) {
+        font-size: em(32);
+      }
+
       &-title {
         font-size: 32px;
         text-align: center;
+
+        @include adopt(920px) {
+          font-size: em(48);
+          text-align: left;
+        }
       }
 
       p {
@@ -219,9 +298,19 @@
         justify-content: space-between;
         margin: 0 -23px 20px -35px;
 
+        @include adopt(768px) {
+          flex-direction: column;
+          margin: 0 0 20px;
+        }
+
         > ul {
           margin: 0 15px 0;
           width: calc(50% - 30px);
+
+          @include adopt(768px) {
+            margin: 0;
+            width: 100%;
+          }
 
           > li {
 
@@ -231,6 +320,10 @@
               font-size: 21px;
               font-weight: bold;
               margin: 20px 0 0 20px;
+
+              @include adopt(920px) {
+                font-size: em(32);
+              }
             }
 
             ul {
@@ -275,9 +368,18 @@
     .ban {
       font-size: em(19);
 
+      @include adopt(920px) {
+        font-size: em(32);
+      }
+
       &-title {
         font-size: 32px;
         text-align: center;
+
+        @include adopt(920px) {
+          font-size: em(48);
+          text-align: left;
+        }
       }
 
       p {
@@ -288,7 +390,17 @@
         display: flex;
         justify-content: center;
 
+        @include adopt(768px) {
+          flex-direction: column;
+          margin: 0 0 20px;
+        }
+
         ul {
+          @include adopt(768px) {
+            margin: 0;
+            width: 100%;
+          }
+
           li {
             align-items: flex-start;
             display: flex;
@@ -314,11 +426,13 @@
 </style>
 
 <script>
+  import vMenu from '@/js/components/pages/home/menu.vue';
   import vPhones from '@/js/components/common/phones.vue';
 
   export default {
     data() {
       return {
+        adopt: 0,
         content: {
           tabs: [
             {
@@ -696,8 +810,11 @@
     },
     created() {
       document.title = this.title;
+      window.addEventListener('resize', this.updateAdopt);
+      this.updateAdopt();
     },
     components: {
+      vMenu,
       vPhones
     },
     computed: {
@@ -710,6 +827,13 @@
           if (el.isActive) result = this.content.inside[i - 1];
         });
         return result;
+      },
+      currentAdopt() {
+          let result;
+          if (this.adopt >= 0 && this.adopt <= 480) result = 480;
+          else if (this.adopt > 480 && this.adopt <= 768) result = 768;
+          else if (this.adopt > 768 && this.adopt <= 920) result = 920;
+          return result;
       }
     },
     methods: {
@@ -717,7 +841,16 @@
         this.content.tabs.forEach(el => {
           el.isActive = el == tab;
         });
+      },
+      updateAdopt(e = null) {
+          this.adopt = window.outerWidth;
+      },
+      removeBr(str) {
+        return str.replace(/<br>/g, ' ');
       }
+    },
+    beforeDestroy() {
+        window.addEventListener('resize', this.updateAdopt);
     }
   }
 </script>

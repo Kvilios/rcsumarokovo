@@ -15,7 +15,17 @@ body {
   font-family: Calibri, sans-serif;
   font-size: #{$font-size}px;
   margin: 0;
+  overflow: hidden auto;
   position: relative;
+  min-width: 480px;
+
+  @include adopt(920px) {
+    font-size: #{$font-size920}px;
+  }
+
+  @include adopt(768px) {
+    font-size: #{$font-size768}px;
+  }
 }
 
 button,
@@ -56,7 +66,13 @@ p {
 }
 
 .v--modal {
+  &-overlay {
+    height: 100% !important;
+  }
+
   &-box {
     height: 335px !important;
+    max-width: 600px !important;
+    width: 100% !important;
   }
 }

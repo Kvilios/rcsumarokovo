@@ -51,6 +51,10 @@
       line-height: 45px;
       padding: 16px 0;
 
+      @include adopt(920px) {
+        line-height: normal;
+      }
+
       &-icon {
         height: 83px;
         margin-right: 40px;

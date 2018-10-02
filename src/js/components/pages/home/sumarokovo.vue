@@ -6,7 +6,7 @@
           <img src="/img/pages/home/sumarokovo/header-icon.png" alt="">
         </div>
         <h2 class="sumarokovo-header-title">
-          Реабилитационный центр «Сумароково»
+          Реабилитацион&shy;ный центр «Сумароково»
         </h2>
       </div>
     </div>
@@ -95,7 +95,7 @@
       }
 
       &-title {
-        font-size: 2em;
+        font-size: em(48);
         position: relative;
         text-align: center;
 

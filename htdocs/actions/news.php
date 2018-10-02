@@ -4,7 +4,9 @@
   $_POST = json_decode(file_get_contents('php://input'), true);
 
   if (isset($_POST['create'])) { // создать новость
-    $sql = "INSERT INTO `news` (`image`, `title`, `short`, `full`, `hidden`) VALUES ('', '', '', '', 1)";
+    $created = date('Y-m-d H:i:s');
+
+    $sql = "INSERT INTO `news` (`created`, `updated`, `image`, `title`, `short`, `full`, `hidden`) VALUES ('$created', '$created', '', '', '', '', 1)";
 
     $data = $conn->query($sql);
 
@@ -20,7 +22,7 @@
 
         $id = $row['LAST_INSERT_ID()'];
 
-        $sql = "SELECT `created`, `updated`, `image`, `title`, `short`, `full`, `hidden` FROM `news` WHERE `id` = $id";
+        $sql = "SELECT `image`, `title`, `short`, `full`, `hidden` FROM `news` WHERE `id` = $id";
 
         $data = $conn->query($sql);
 
@@ -32,8 +34,8 @@
 
             $result = [
               'id' => $id,
-              'created' => $row['created'],
-              'updated' => $row['updated'],
+              'created' => $created,
+              'updated' => $created,
               'image' => $row['image'],
               'title' => $row['title'],
               'short' => $row['short'],
@@ -77,9 +79,11 @@
   }
 
   if (isset($_POST['toggleHidden']) && isset($_POST['id'])) { // показать/скрыть новость
+    $updated = date('Y-m-d H:i:s');
+
     $id = $_POST['id'];
 
-    $sql = "UPDATE `news` SET `hidden` = !`hidden` WHERE `id` = $id";
+    $sql = "UPDATE `news` SET `updated` = '$updated', `hidden` = !`hidden` WHERE `id` = $id";
 
     $data = $conn->query($sql);
 
@@ -99,6 +103,8 @@
   }
 
   if (isset($_POST['save']) && isset($_POST['item'])) { // сохранить новость
+    $updated = date('Y-m-d H:i:s');
+
     $item = $_POST['item'];
 
     $id = $item['id'];
@@ -111,7 +117,7 @@
 
     $full = $item['full'];
 
-    $sql = "UPDATE `news` SET `image` = '$image', `title` = '$title', `short` = '$short', `full` = '$full'  WHERE `id` = $id";
+    $sql = "UPDATE `news` SET `updated` = '$updated', `image` = '$image', `title` = '$title', `short` = '$short', `full` = '$full'  WHERE `id` = $id";
 
     $data = $conn->query($sql);
 
@@ -151,7 +157,9 @@
           'title' => $row['title'],
           'short' => $row['short'],
           'full' => $row['full'],
-          'hidden' => boolval($row['hidden'])
+          'hidden' => boolval($row['hidden']),
+          // TODO Избавиться от этого:
+          'fullIsActive' => false
         ];
       }
     }

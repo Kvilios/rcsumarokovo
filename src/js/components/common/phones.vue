@@ -24,6 +24,16 @@
     height: 50px;
     margin-bottom: 40px;
 
+    @include adopt(920px) {
+        background-color: rgba(0, 0, 0, 0);
+        height: auto;
+        margin: $margin 0 40px;
+    }
+
+    @include adopt(768px) {
+        margin-top: 40px;
+    }
+
     &-list {
       align-items: center;
       display: flex;
@@ -31,12 +41,21 @@
       margin-left: 262px;
       padding-left: 16px;
 
+      @include adopt(920px) {
+        flex-direction: column;
+        margin-left: 0;
+      }
+
       &-item {
         color: white;
         font-family: Garamond, serif;
         font-size: em(32);
         font-weight: bold;
         margin: 0 4px;
+
+        @include adopt(920px) {
+          color: $dark-text;
+        }
 
         &:first-of-type {
           font-size: em(40);

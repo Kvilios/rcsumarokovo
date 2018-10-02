@@ -1,5 +1,8 @@
 <template>
   <div id="about" class="about">
+    <div class="adopt920">
+        <v-menu />
+    </div>
     <v-phones />
     <div class="layout">
       <h2 class="about-title">
@@ -74,11 +77,21 @@
       font-size: em(32);
       margin-left: 278px;
       text-align: center;
+
+      @include adopt(920px) {
+        font-size: em(48);
+        margin: 0 $margin;
+      }
     }
 
     &-inside {
       font-size: em(19);
       margin-left: 278px;
+
+      @include adopt(920px) {
+        font-size: em(32);
+        margin: 0 $margin;
+      }
 
       p {
         margin-top: 1em;
@@ -133,6 +146,7 @@
 </style>
 
 <script>
+  import vMenu from '@/js/components/pages/home/menu.vue';
   import vPhones from '@/js/components/common/phones.vue';
 
   export default {
@@ -145,6 +159,7 @@
       document.title = this.title;
     },
     components: {
+      vMenu,
       vPhones
     }
   }

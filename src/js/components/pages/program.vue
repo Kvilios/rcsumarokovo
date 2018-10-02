@@ -1,5 +1,8 @@
 <template>
   <div id="program" class="program">
+    <div class="adopt920">
+        <v-menu />
+    </div>
     <v-phones />
     <div class="layout">
       <h2 class="program-title">
@@ -48,15 +51,30 @@
       font-size: em(24);
       margin-left: 278px;
       text-align: center;
+
+      @include adopt(920px) {
+        font-size: em(48);
+        margin: 0 $margin;
+      }
     }
 
     &-inside {
       margin: 1em 0 0 278px;
 
+      @include adopt(920px) {
+        font-size: em(32);
+        margin: 1em 0 0;
+      }
+
       &-list {
         display: flex;
         justify-content: space-between;
         margin: 0 -20px;
+
+        @include adopt(920px) {
+          flex-direction: column;
+          margin: 0;
+        }
 
         &-item {
           display: flex;
@@ -64,10 +82,24 @@
           padding-left: 20px;
           width: 33.3%;
 
+          @include adopt(920px) {
+            padding-left: 0;
+            width: 100%;
+          }
+
           &:not(:last-child) {
             .program-inside-list-item-description {
               background: url('/img/pages/program/border.png') no-repeat 100% 0;
               padding-right: 21px;
+
+              @include adopt(920px) {
+                background: none;
+                padding-right: 0;
+              }
+            }
+
+            @include adopt(920px) {
+              margin-bottom: 40px;
             }
           }
 
@@ -76,6 +108,10 @@
             font-weight: bold;
             font-size: em(32);
             text-align: center;
+
+            @include adopt(920px) {
+              font-size: em(48);
+            }
           }
 
           &-phrase {
@@ -85,11 +121,23 @@
             font-size: em(24);
             margin: 20px 0 40px;
             text-align: center;
+
+            @include adopt(920px) {
+              font-size: em(24);
+            }
+
+            @include adopt(920px) {
+              margin-bottom: 20px;
+            }
           }
 
           &-description {
             flex-grow: 1;
             font-size: em(19);
+
+            @include adopt(920px) {
+              font-size: em(24);
+            }
           }
         }
       }
@@ -100,6 +148,10 @@
           display: flex;
           font-size: em(19);
           margin-top: 20px;
+
+          @include adopt(920px) {
+            font-size: em(32);
+          }
 
           &:before {
             background-color: $green;
@@ -139,6 +191,7 @@
 </style>
 
 <script>
+  import vMenu from '@/js/components/pages/home/menu.vue';
   import vPhones from '@/js/components/common/phones.vue';
 
   export default {
@@ -168,6 +221,7 @@
       document.title = this.title;
     },
     components: {
+      vMenu,
       vPhones
     }
   }
