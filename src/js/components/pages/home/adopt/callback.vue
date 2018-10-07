@@ -1,24 +1,26 @@
 <template>
     <div class="adopt-callback">
-        <h1 class="adopt callback-title">
+        <h1 class="adopt-callback-title">
             Благотворительный фонд<br>
             &laquo;преподобного<br>
             Геннадия Костромского<br>
             и Любимоградского&raquo;
         </h1>
-        <h2 class="adopt-callback-subtitle">
-            Церковная помощь<br>
-            алко- и наркозависимым
-        </h2>
-        <p class="adopt-callback-tagline">
-            Звони!<br>
-            Поможем!
-        </p>
-        <ul class="adopt-callback-phones">
-            <li>
-                +7 (915) 901 27 77
-            </li>
-        </ul>
+        <div class="adopt-callback-wrapper">
+            <h2 class="adopt-callback-subtitle">
+                Церковная помощь<br>
+                алко- и наркозависимым
+            </h2>
+            <p class="adopt-callback-tagline">
+                Звони!<br>
+                Поможем!
+            </p>
+            <ul class="adopt-callback-phones">
+                <li>
+                    +7 (915) 901 27 77
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -28,11 +30,18 @@
 
     .adopt-callback {
         font-family: Garamond, serif;
-        padding: $padding 0;
+        padding-top: $padding;
 
         &-title {
             font-size: em(48);
             text-align: center;
+        }
+
+        &-wrapper {
+            background-color: $accentColor;
+            color: white;
+            margin-top: $margin;
+            padding: $padding 0;
         }
 
         &-subtitle {
