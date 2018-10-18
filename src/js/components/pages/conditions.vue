@@ -125,6 +125,8 @@
           @include adopt(920px) {
             font-size: em(32);
             margin: $margin $margin 0;
+            text-align: center;
+            width: 100%;
           }
 
           &:hover {
