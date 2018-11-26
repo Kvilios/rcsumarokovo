@@ -30,7 +30,7 @@
         <li class="contacts-list-item">
           <h2 class="contacts-list-item-title">
             Группа взаимопомощи проходит<br>
-            каждую пятницу в 18:00<br>
+            каждую среду в 18:00<br>
             по адресу:
           </h2>
           <div class="contacts-list-item-description">
@@ -48,7 +48,7 @@
         <li class="contacts-resource-list-item">
           <div class="contacts-resource-list-item-icon" :style="'width: 35px; ' + iconStyle('icon-1.svg')"></div>
           <div class="contacts-resource-list-item-label">
-            <a class="contacts-resource-list-item-label-link animate" href="callto:89159012777">+7 (915) 901 27 77</a>, <a class="contacts-resource-list-item-label-link" href="callto:89109536777">+7 (910) 953 67 77</a>
+            <a class="contacts-resource-list-item-label-link animate" href="callto:89159012777">+7 (915) 901 27 77</a>
           </div>
         </li>
         <li class="contacts-resource-list-item" v-for="listItem in list">
