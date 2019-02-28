@@ -1,4 +1,5 @@
 const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
 //const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -24,7 +25,7 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'vue-style-loader'
           },
           {
             loader: 'css-loader'
@@ -38,7 +39,7 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'vue-style-loader'
           },
           {
             loader: 'css-loader'
@@ -89,4 +90,8 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'
     }
   },
+  plugins: [
+    // make sure to include the plugin for the magic
+    new VueLoaderPlugin()
+  ]
 };
