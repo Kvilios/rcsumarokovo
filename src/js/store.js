@@ -18,7 +18,8 @@ export default new Vuex.Store({
         },
         news: {
             list: [],
-            title: 'Новости'
+            title: 'Новости',
+            total: 1
         }
     },
     getters: {
@@ -30,14 +31,13 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        loadNews({ commit }) {
-            axios.post('/actions/news.php', {all: true})
+        loadNews({ commit }, pagination) {
+            axios.get(`/actions/news.php?page=${pagination.currentPage}&per_page=${pagination.perPage}&is_all=true`)
             .then(response => {
                 if (response.data === 'error') {
                     alert('Произошла ошибка!')
                     console.log('Код ошибки: 2')
-                }
-                else commit('updateNewsList', response.data)
+                } else commit('updateNews', response.data)
             })
             .catch(error => {
                 alert('Произошла ошибка!')
@@ -69,8 +69,9 @@ export default new Vuex.Store({
         updateAdminUserData(state, data) {
             state.admin.userData = data
         },
-        updateNewsList(state, data) {
-            state.news.list = data
+        updateNews(state, data) {
+            state.news.list = data.list;
+            state.news.total = data.total;
         },
         saveNewsItem(state, data) {
             axios.post('/actions/news.php', {save: true, item: data})

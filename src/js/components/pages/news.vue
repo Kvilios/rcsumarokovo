@@ -12,7 +12,7 @@
       </template>
       <template v-else>
         <ul class="news-list" v-if="list.length">
-          <li class="news-list-item" v-for="listItem in list">
+          <li class="news-list-item" :key="listItem.id" v-for="listItem in list">
             <a class="news-list-item-link">
               <div class="news-list-item-link-image" :style="imageStyle(listItem.image)" v-if="listItem.image"></div>
               <div class="news-list-item-link-inside">
@@ -36,6 +36,7 @@
         <p class="news-empty" v-else>
           В данный момент новостей нет, пожалуйста, зайдите позже.
         </p>
+        <v-pagination @select="selectHandler" :pagination="pagination" />
       </template>
     </div>
   </div>
@@ -179,6 +180,7 @@
 <script>
   import vMenu from '@/js/components/pages/home/menu.vue';
   import vPhones from '@/js/components/common/phones.vue';
+  import vPagination from '@/js/components/common/pagination.vue';
   import axios from 'axios';
 
   export default {
@@ -186,7 +188,12 @@
       return {
         isLoading: false,
         list: [],
-        title: 'Новости'
+        pagination: {
+          currentPage: 1,
+          perPage: 10,
+          totalPages: 1
+        },
+        title: 'Новости',
       }
     },
     methods: {
@@ -214,20 +221,26 @@
       getNews() {
         this.isLoading = true;
         let then = this;
-        axios.post('/actions/news.php')
+        axios.get(`/actions/news.php?page=${this.pagination.currentPage}&per_page=${this.pagination.perPage}`)
         .then(response => {
           this.isLoading = false;
           if (response.data === 'error') {
             alert('Произошла ошибка!')
             console.log('Код ошибки: 2')
+          } else {
+            then.pagination.totalPages = response.data.total;
+
+            then.list = response.data.list;
           }
-          else then.list = response.data;
         })
         .catch(error => {
           this.isLoading = false;
           alert('Произошла ошибка!');
           console.log('Код ошибки: 1')
         });
+      },
+      selectHandler(page) {
+        this.getNews();
       }
     },
     created() {
@@ -236,7 +249,8 @@
     },
     components: {
       vMenu,
-      vPhones
+      vPhones,
+      vPagination
     }
   }
 </script>

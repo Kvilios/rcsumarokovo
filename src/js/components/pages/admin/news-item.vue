@@ -30,9 +30,7 @@
         </h3>
         <div class="news-item-content-upload">
             <div class="news-item-content-upload-edit">
-                <base64-upload  class="news-item-content-upload-edit-change" @change="onChangeImage">
-                    Изменить
-                </base64-upload>
+                <base64-upload class="news-item-content-upload-edit-change" @change="onChangeImage" />
                 <button class="news-item-content-upload-edit-remove" @click="onRemoveImage">
                     Удалить
                 </button>
@@ -125,7 +123,20 @@
                 width: 100%;
 
                 &-change {
+                    align-items: center;
+                    display: flex;
+                    height: 100%;
+                    justify-content: center;
+                    width: 100%;
 
+                    img {
+                        display: none;
+                    }
+
+                    &::before {
+                        content: 'Изменить';
+                        position: absolute;
+                    }
                 }
 
                 &-remove {

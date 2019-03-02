@@ -3,15 +3,20 @@
     <h2 class="news-title">
       Новости
     </h2>
-    <button class="news-item-panel-buttons-delete" @click="createNewsItem">
-      Создать!
+    <button class="news-item-panel-buttons-create" @click="createNewsItem">
+      Создать
     </button>
-    <template v-if="data.list.length">
-      <p class="news-number">
-        Найдено записей: {{ data.list.length }}
+    <button class="news-item-panel-buttons-refresh" @click="refreshNews">
+      Обновить
+    </button>
+    <template v-if="isLoading">
+      <p class="news-loading">
+        Загрузка, пожалуйста, подождите...
       </p>
+    </template>
+    <template v-else-if="data.list.length">
       <ul class="news-list">
-        <v-news-item class="news-list-item" v-for="(item, i) in data.list" :key="'news-item-' + item.id" :data="item" />
+        <v-news-item class="news-list-item" v-for="item in data.list" :key="'news-item-' + item.id" :data="item" />
       </ul>
     </template>
     <template v-else>
@@ -19,6 +24,7 @@
         Записей не найдено!
       </p>
     </template>
+    <v-pagination @select="selectHandler" :pagination="pagination" />
   </div>
 </template>
 
@@ -30,40 +36,37 @@
     background-color: $light;
     padding: 16px;
 
-    &-title {
-
-    }
-
-    &-number {
-
-    }
-
     &-list {
       margin: 0 auto;
       max-width: 1024px;
       padding: 16px;
 
       &-item {
-        margin-bottom: 64px;
+        margin: $margin * 2 0 0;
 
-        &:last-child {
-          margin-bottom: 0;
-        }
+        width: 100%;
       }
     }
 
-    &-empty {
+    &-loading {
+      margin-top: 100px;
+      text-align: center;
+    }
 
+    .pagination {
+      justify-content: center;
     }
   }
 </style>
 
 <script>
-  import vNewsItem from '@/js/components/pages/admin/news-item.vue'
+  import vNewsItem from '@/js/components/pages/admin/news-item.vue';
+  import vPagination from '@/js/components/common/pagination.vue';
 
   export default {
     components: {
-      vNewsItem
+      vNewsItem,
+      vPagination
     },
     computed: {
       data() {
@@ -71,8 +74,19 @@
       }
     },
     created() {
-      this.$store.dispatch('loadNews')
-      document.title = this.data.title
+      document.title = this.data.title;
+
+      this.getNews();
+    },
+    data() {
+      return {
+        isLoading: false,
+        pagination: {
+            currentPage: 1,
+            perPage: 5,
+            totalPages: 1
+        }
+      }
     },
     methods: {
       save() {
@@ -80,7 +94,28 @@
       },
       createNewsItem() {
           this.$store.commit('createNewsItem')
+      },
+      selectHandler(page) {
+        this.getNews();
+      },
+      getNews() {
+        this.isLoading = true;
+
+        this.$store.dispatch('loadNews', this.pagination);
+      },
+      refreshNews() {
+        this.getNews();
       }
+    },
+    watch: {
+      data: {
+            handler: function(val) {
+              this.isLoading = false;
+
+              this.pagination.totalPages = val.total;
+            },
+            deep: true
+        }
     }
   }
 </script>

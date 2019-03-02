@@ -22,7 +22,11 @@
   @import '~@/scss/_mixins.scss';
 
   .panel {
-    
+    &-header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 </style>
 

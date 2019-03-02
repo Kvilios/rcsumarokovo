@@ -136,39 +136,72 @@
     die();
   }
 
-  if (isset($_POST['all'])) $sql = 'SELECT `id`, `created`, `updated`, `image`, `title`, `short`, `full`, `hidden` FROM `news` ORDER BY `created` DESC'; // получить новости
-  else $sql = 'SELECT `id`, `created`, `updated`, `image`, `title`, `short`, `full` FROM `news` WHERE `hidden` = 0 ORDER BY `created` DESC';
+  if (isset($_GET['page']) && isset($_GET['per_page'])) {
+    $is_all = false;
 
-  $data = $conn->query($sql);
+    if (isset($_GET['is_all'])) $is_all = $_GET['is_all'];
+
+    $page = intval($_GET['page']);
+    $page = --$page;
+
+    $per_page = intval($_GET['per_page']);
+
+    $page = $page * $per_page;
+
+    if ($is_all) $sql = "SELECT `id`, `created`, `updated`, `image`, `title`, `short`, `full` FROM `news` ORDER BY `created` DESC LIMIT $page, $per_page";
+    else $sql = "SELECT `id`, `created`, `updated`, `image`, `title`, `short`, `full` FROM `news` WHERE `hidden` = 0 ORDER BY `created` DESC LIMIT $page, $per_page";
+  }
   
-  $result = 'error';
-
-  if ($data) {
-    $result = [];
+  if ($sql) {
+    $data = $conn->query($sql);
   
-    if (intval($data->num_rows)) {
-      while ($row = $data->fetch_assoc()) {
+    $result = 'error';
 
-        $result[] = [
-          'id' => $row['id'],
-          'created' => $row['created'],
-          'updated' => $row['updated'],
-          'image' => $row['image'],
-          'title' => $row['title'],
-          'short' => $row['short'],
-          'full' => $row['full'],
-          'hidden' => boolval($row['hidden']),
-          // TODO Избавиться от этого:
-          'fullIsActive' => false
-        ];
+    if ($data) {
+      $list = [];
+
+      $total = 0;
+
+      if (intval($data->num_rows)) {
+        while ($row = $data->fetch_assoc()) {
+
+          $list[] = [
+            'id' => $row['id'],
+            'created' => $row['created'],
+            'updated' => $row['updated'],
+            'image' => $row['image'],
+            'title' => $row['title'],
+            'short' => $row['short'],
+            'full' => $row['full'],
+            'hidden' => boolval($row['hidden']),
+            // TODO Избавиться от этого:
+            'fullIsActive' => false
+          ];
+        }
       }
+
+      if ($is_all) $sql = 'SELECT COUNT(*) FROM `news`';
+      else $sql = 'SELECT COUNT(*) FROM `news` WHERE `hidden` = 0';
+
+      $data = $conn->query($sql);
+
+      $row = $data->fetch_assoc();
+
+      $total = intval($row['COUNT(*)']);
+
+      $total = ceil($total / $per_page);
+
+      $result = [
+        'list' => $list,
+        'total' => $total
+      ];
+
+      $result = json_encode($result);
     }
 
-    $result = json_encode($result);
+    $conn->close();
+
+    echo $result;
   }
-
-  $conn->close();
-
-  echo $result;
 ?>
 
