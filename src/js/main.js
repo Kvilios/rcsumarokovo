@@ -8,11 +8,10 @@ import 'swiper/dist/css/swiper.css'
 import VModal from 'vue-js-modal'
 import {TweenMax, Power2, TimelineLite} from 'gsap'
 import VueScrollTo from 'vue-scrollto'
-import '@/js/ymaps.js'
 import store from '@/js/store.js'
 import VueCookie from 'vue-cookie'
 import VueQuillEditor from 'vue-quill-editor'
-//import './ymaps'
+import YmapPlugin from 'vue-yandex-maps'
 
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -34,6 +33,11 @@ Vue.use(VueScrollTo, {
  })
  Vue.use(VueCookie)
  Vue.use(VueQuillEditor)
+ Vue.use(YmapPlugin, { // you may define your apiKey, lang and version or skip this.
+     apiKey: '3e2baf54-f5e7-46f8-9843-5a348082b1dc', // '' by default
+     lang: 'ru_RU', // 'ru_RU' by default
+     version: '2.1' // '2.1' by default
+ })
 
 const app = new Vue({
   components: {

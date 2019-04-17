@@ -57,7 +57,6 @@
         <title>
             Помощь зависимым и их близким, церковная алко- и наркореабилитация
         </title>
-        <script src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
     </head>
     <body>
         <div id="app"></div>

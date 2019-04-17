@@ -25,7 +25,15 @@
               улица Центральная, 14
             </p>
           </div>
-          <div id="map-1" class="contacts-list-item-map"></div>
+          <div id="map-1" class="contacts-list-item-map">
+            <yandex-map
+                    :coords="[58.20448312849425,41.797698000000004]"
+                    zoom="10"
+                    style="width: 100%; height: 100%;"
+                    :placemarks="[placemarks[0]]"
+                    @map-was-initialized="initHandler"
+            />
+          </div>
         </li>
         <li class="contacts-list-item">
           <h2 class="contacts-list-item-title">
@@ -41,7 +49,15 @@
               Кадыевский переулок, 2
             </p>
           </div>
-          <div id="map-2" class="contacts-list-item-map"></div>
+          <div id="map-2" class="contacts-list-item-map">
+            <yandex-map
+                    :coords="[57.77144156683215,40.92315699999991]"
+                    zoom="15"
+                    style="width: 100%; height: 100%;"
+                    :placemarks="[placemarks[1]]"
+                    @map-was-initialized="initHandler"
+            />
+          </div>
         </li>
       </ul>
       <ul class="contacts-resource-list">
@@ -243,11 +259,29 @@
             link: 'https://www.instagram.com/bf.p.gennadiyakil/'
           }
         ],
-        title: 'Контакты'
+        title: 'Контакты',
+        placemarks: [
+          {
+            coords: [58.20448312849425,41.797698000000004],
+            properties: {}, // define properties here
+            options: {}, // define options here
+            clusterName: "РЦ «Сумароково»",
+            balloonTemplate: '<div>157084, Россия, Костромская область, Сусанинский район, село Сумароково, улица Центральная, 14</div>',
+            callbacks: { click: function() {} }
+          },
+          {
+            coords: [57.77144156683215,40.92315699999991],
+            properties: {}, // define properties here
+            options: {}, // define options here
+            clusterName: "Группа взаимопомощи",
+            balloonTemplate: '<div>г. Кострома, Кадыевский переулок, 2</div>',
+            callbacks: { click: function() {} }
+          }
+        ]
       }
     },
     mounted() {
-      this.createMaps();
+      //this.createMaps();
       document.title = this.title;
     },
     components: {
@@ -255,31 +289,6 @@
       vPhones
     },
     methods: {
-      createMaps() {
-        ymaps.ready(init);
-        let map_1, map_2;
-
-        function init() {
-          console.log(ymaps);
-            map_1 = new ymaps.Map ("map-1", {
-                center: [58.20448312849425,41.797698000000004],
-                zoom: 10
-            });
-            map_1.geoObjects.add(new ymaps.Placemark([58.20448312849425,41.797698000000004], {
-                hintContent: 'РЦ «Сумароково»',
-                balloonContent: '157084, Россия, Костромская область, Сусанинский район, село Сумароково, улица Центральная, 14'
-            }));
-
-            map_2 = new ymaps.Map ("map-2", {
-                center: [57.77144156683215,40.92315699999991],
-                zoom: 15
-            });
-            map_2.geoObjects.add(new ymaps.Placemark([57.77144156683215,40.92315699999991], {
-                hintContent: 'Группа взаимопомощи',
-                balloonContent: 'г. Кострома, Кадыевский переулок, 2'
-            }));
-        }
-      },
       iconStyle(icon) {
         return 'background: url(\'/img/pages/contacts/' + icon + '\') no-repeat center / contain;';
       }
