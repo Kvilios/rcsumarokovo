@@ -37,7 +37,7 @@
         </li>
         <li class="contacts-list-item">
           <h2 class="contacts-list-item-title">
-            Группа самопомощи для алко– и наркозависимых «Среда»<br>
+            Группа самопомощи для алко– и наркозависимых &laquo;Среда&raquo;<br>
             проходит каждую среду в 18:00<br>
             по адресу:
           </h2>
@@ -60,19 +60,47 @@
           </div>
         </li>
       </ul>
-      <ul class="contacts-resource-list">
-        <li class="contacts-resource-list-item">
-          <div class="contacts-resource-list-item-icon" :style="'width: 35px; ' + iconStyle('icon-1.svg')"></div>
-          <div class="contacts-resource-list-item-label">
-            <a class="contacts-resource-list-item-label-link animate" href="callto:89159012777">+7 (915) 901 27 77</a>
-          </div>
+      <ul class="contacts-list">
+        <li class="contacts-list-item">
+          <ul class="contacts-resource-list">
+            <li class="contacts-resource-list-item">
+              <div class="contacts-resource-list-item-icon" :style="'width: 35px; ' + iconStyle('icon-1.svg')"></div>
+              <div class="contacts-resource-list-item-label">
+                <a class="contacts-resource-list-item-label-link animate" href="callto:89159012777">+7 (915) 901 27 77</a>
+              </div>
+            </li>
+            <li class="contacts-resource-list-item" v-for="listItem in list">
+              <div class="contacts-resource-list-item-icon" :style="iconStyle(listItem.icon)"></div>
+              <div class="contacts-resource-list-item-label">
+                <a class="contacts-resource-list-item-label-link animate" :href="listItem.link" target="_blank">
+                  {{ listItem.label }}
+                </a>
+              </div>
+            </li>
+          </ul>
         </li>
-        <li class="contacts-resource-list-item" v-for="listItem in list">
-          <div class="contacts-resource-list-item-icon" :style="iconStyle(listItem.icon)"></div>
-          <div class="contacts-resource-list-item-label">
-            <a class="contacts-resource-list-item-label-link animate" :href="listItem.link" target="_blank">
-              {{ listItem.label }}
-            </a>
+        <li class="contacts-list-item">
+          <h2 class="contacts-list-item-title">
+            Группа поддержки значимых близких и родственников алко– и наркозависимых &laquo;Пятница&raquo;<br>
+            проходит каждую пятницу в 18:00<br>
+            по адресу:
+          </h2>
+          <div class="contacts-list-item-description">
+            <p>
+              г. Кострома,
+            </p>
+            <p>
+              Кадыевский переулок, 2
+            </p>
+          </div>
+          <div id="map-3" class="contacts-list-item-map">
+            <yandex-map
+                    :coords="[57.77144156683215,40.92315699999991]"
+                    zoom="15"
+                    style="width: 100%; height: 100%;"
+                    :placemarks="[placemarks[1]]"
+                    @map-was-initialized="initHandler"
+            />
           </div>
         </li>
       </ul>
@@ -103,7 +131,7 @@
     &-list {
       display: flex;
       justify-content: space-between;
-      margin-top: 100px;
+      margin-top: 70px;
       padding-left: 40px;
 
       @include adopt(920px) {
@@ -155,11 +183,10 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin: 80px -50px 60px;
+      width: 100%;
 
       @include adopt(920px) {
         font-size: em(32);
-        margin: 40px 0 60px;
       }
 
       &-item {
@@ -167,7 +194,7 @@
         display: flex;
         flex-direction: column;
         padding: 0 50px;
-        width: 50%;
+        width: 100%;
 
         @include adopt(480px) {
           padding: 8px 0;
@@ -196,6 +223,12 @@
     }
 
     &-requisites {
+      margin-top: 70px;
+
+      @include adopt(920px) {
+        margin-top: 0;
+      }
+
       &-title {
         color: $accentColor;
         font-family: Calibri, sans-serif;
