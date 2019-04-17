@@ -37,8 +37,8 @@
         </li>
         <li class="contacts-list-item">
           <h2 class="contacts-list-item-title">
-            Группа взаимопомощи проходит<br>
-            каждую среду в 18:00<br>
+            Группа самопомощи для алко– и наркозависимых «Среда»<br>
+            проходит каждую среду в 18:00<br>
             по адресу:
           </h2>
           <div class="contacts-list-item-description">
